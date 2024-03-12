@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <p class="text-center my_search_text">You have searched for :<b>{{query}}</b></p>
+</div>
+<div class="container">
+    <br>
+    <div class="card" id="backdrop">
+        <div class="card-body">
+            <div class="row">
+                {% for movie in object_list %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+  
+                            <img src="{{ movie.poster.url }}" alt="" class="img-fluid" width="75%">
+                            <h3 class="text-center">{{ movie.title }}</h3>
+                                <i class="text-center">{{ movie.description }} </i>
+                                <br>
+                                <a href="{% url 'detail' movie.id %}">Read more...</a>
+                            </div>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="row mx-auto">
+                    <p class="text-center my_search_text">0 result found</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+
+
+<h2>Update User</h2>
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+
+    <br>
+<button class="btn btn-lg btn-success"  type="submit">Update  {{user.username}}</button>
+</form>
+
+

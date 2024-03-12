@@ -1,0 +1,60 @@
+
+
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{% url 'home' %}">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/django.png" width="30px" height="200px">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a href="{% url 'home' %}" class="navbar-item">
+          Home
+        </a>
+        <a href="{% url 'add_movie' %}" class="navbar-item">
+          add movie
+        </a>
+        
+        
+
+      <div class="navbar-end">
+        <div class="navbar-item">     
+          {% if request.user.is_authenticated %}
+          
+            <a class="has-text-light mr-2">
+              Welcome, "{{ user.username }}"
+            </a>
+            <form action="{% url 'search_results' %}" method="get">
+              <input name="q" type="text" placeholder="Search...">
+            </form>
+            
+            <div class="buttons">
+              <a href="{% url 'logout' %}" class="button is-danger">
+                <strong>Logout</strong>
+              </a>
+              <div class="buttons">
+
+                <a href="{% url 'edit_user' %}" ><i class="fa-solid fa-user fa-2xl"></i>
+                </a>
+                
+              </div>
+              {% else %}
+              <a href="{% url 'signup' %}" class="button is-success mr-2">
+                <strong>Sign up</strong>
+              </a>
+              <a href="{% url 'login' %}" class="button is-light">
+                Log in
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    </nav>

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+             <div class="col-md-4" >
+                <img src= "{{movie.poster.url}}" alt="{{ movie.name}}" class="img-fluid">
+             </div>
+        
+             <div class="col-md-8">
+                <h3 class="text-center">{{ movie.title}}</h3>
+                <h5>Description: {{ movie.description }}</h5>
+                <h5>Category: {{ movie.category}}</h5>
+                <h5>Released Date: {{ movie.release_date }} </h5>
+                <h5>Actors: {{movie.actors}}</h5>
+                <a href="{{movie.trailer_link}}"><h5>Trailer_link</h5></a>
+
+                {% if request.user.is_authenticated %}
+               
+                    {% if movie.added_by == request.user %}
+                        <a href="{% url 'update' movie.id %}" class="btn btn-warning">Edit Movie</a>
+                        <a href="{% url 'delete' movie.id %}" class="btn btn-danger" onclick="return confirm('Are you sure!!!?');">Delete Movie</a>
+                    {% endif %}
+                {% endif %}
+             </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center">Add Reviews</h3>
+            <form action="{% url 'add_review' movie.id %}" method="POST">
+                {% csrf_token %}
+                <label for="comment">Review:</label>
+                <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
+                
+                <label for="rating">Rating</label>
+                <input type="range" id="rangeInput" name="rating" min="0" max="10" value="0" step="0.5"
+                    oninput="amount.value=rangeInput.value" >
+
+                <output  name="amount"  id="amount" for="rangeInput" >0</output>
+                <br>
+                <input type="submit" value="Add Review" class="btn btn-danger">
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center">Reviews</h3>
+                {% for review in reviews %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5 class="text-left">{{ review.user.username }}</h5>
+                                    <h5>{{ review.rating }}</h5>
+                                    {% if request.user == review.user %}
+                                        <a href="{% url 'edit_review' movie.id review.id %}">Edit</a>
+                                        <a href="{% url 'delete_review' movie.id review.id %}" onclick="return confirm('Are you sure!!!?');">Delete</a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-9">
+                                    <p>{{ review.comment }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                  
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

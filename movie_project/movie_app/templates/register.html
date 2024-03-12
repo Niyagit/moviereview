@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		   body {
+      font-family: sans-serif;
+    }
+
+    form {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    a {
+      color: #000;
+}
+	</style>
+	<title>Sign Up</title>
+</head>
+<body>
+	{% extends 'base.html' %}
+	{% block content %}
+	<form action="" method="post">
+		{% csrf_token %}
+		<h2>Registration</h2>
+		<input type="text" id="name" name="first_name" placeholder="Your First_Name" >
+		<input type="text" id="name" name="last_name" placeholder="Your Last-Name">
+		<input type="text" id="name" name="username" placeholder="User Name" required>
+	
+		<input type="email" id="email" name="email" placeholder="Enter Your  Email" required>
+	
+		<input type="password" id="password" name="password" placeholder="Enter Your  Password" required>
+	
+		<input type="submit" value="signup">
+	</form>
+	<div class="login-link">
+		<a href="{% url 'login' %}">I already have an account.</a>
+	  </div>
+</body>
+</html>
+
+
+
+
+{% for messages in messages %}
+
+<h3>{{messages}}</h3>
+
+{% endfor %}
+
+{% endblock content%}
